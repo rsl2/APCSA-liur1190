@@ -1,0 +1,26 @@
+import java.util.Scanner;
+
+//© A+ Computer Science  -  www.apluscompsci.com
+//Name -
+//Date -
+//Class -
+//Lab  -
+
+public class Lab02e
+{
+	public static void main( String[] args )
+   {
+		//add test cases
+		Circle c1 = new Circle();
+		c1.setRadius(7.5);
+		c1.calculateArea();
+		c1.print();
+		
+		
+		
+		
+		
+		
+		
+	}
+}

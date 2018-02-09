@@ -1,0 +1,19 @@
+//© A+ Computer Science  -  www.apluscompsci.com
+//Name -
+//Date -
+//Class -
+//Lab  -
+
+public class Lab02f
+{
+	public static void main( String[] args )
+   {
+		//add test cases
+		Line l1 = new Line();
+		l1.setCoordinates(1, 9, 14, 2);
+		
+		
+		
+		
+	}
+}
