@@ -29,9 +29,6 @@ public class Lab09f
 		out.println(test);
 		
 		test.setRemover("abaababababa", 'x');
-		test.removeLetters();
-		out.println(test);
-		
 		
 											
 	}
