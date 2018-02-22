@@ -1,0 +1,41 @@
+//© A+ Computer Science  -  www.apluscompsci.com
+//Name -
+//Date -
+//Class -
+//Lab  -
+
+import java.util.Random;
+import java.util.Scanner;
+import static java.lang.System.*;
+
+public class GuessingGame
+{
+	private int upperBound;
+
+	public GuessingGame(int stop)
+	{
+		upperBound = stop;
+		
+	}
+
+	public void playGame()
+	{
+		Scanner keyboard = new Scanner(System.in);
+		int nums[];
+		/**for (int i = 1; i <= upperBound; i++);
+		{
+			nums.push(i);
+		}*/
+		int right = Math.random(upperBound);
+
+
+
+
+	}
+
+	public String toString()
+	{
+		String output="";
+		return output;
+	}
+}
