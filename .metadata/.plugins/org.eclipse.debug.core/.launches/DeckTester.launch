@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/unit 9/src/DeckTester.java"/>
+<listEntry value="/unit 9 activity 5 buggy 4/src/DeckTester.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="DeckTester"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="unit 9"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="unit 9 activity 5 buggy 4"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea"/>
 </launchConfiguration>
