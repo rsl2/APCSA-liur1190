@@ -31,6 +31,7 @@ public class Histogram
 		for (int i = 0; i < values.length; i++)
 		{
 			letters.add(values[i]);
+			count.add(0);
 		}
 
 
@@ -59,21 +60,66 @@ public class Histogram
 			}
 			file.close();
 		}**/
-		try{
+		/**try{
 			Scanner file = new Scanner(new File(fileName));
 			for (int i = 0; i < letters.size(); i++)
 			{
 				while (file.hasNext())
 				{
 					char symbol = file.next().charAt(i);
-					out.print(symbol);;
-					if (symbol==letters.get(i))
+					out.print(symbol);
+
+					if (Character.toString(symbol).equals(letters.get(i)))
 					{
+						out.print(symbol);
 						count.set(i,  count.get(i) + 1);
+
 					}
+					symbol = file.next();
 				}
 			}
 			file.close();
+		}**/
+		
+		/**try{
+			Scanner file = new Scanner(new File(fileName));
+			int fileSize = file.nextInt();
+			for (int i = 0; i < fileSize; i++)
+			{
+				String sentence = file.nextLine();
+				out.println(sentence);
+				for (int j = 0; j < letters.size(); j++)
+					{
+						for (int k = 0; k < sentence.length(); k++)
+						{
+							if (letters.get(j) == sentence.charAt(k))
+								out.print(sentence.charAt(k));
+								count.set(j, count.get(j) + 1);
+						}
+					}
+						
+							//still having issues with this stupid thing, for whatever reason the program won't go into the if statement
+
+			}
+		}**/
+		
+		try{
+			Scanner file = new Scanner(new File(fileName));
+			String text = "";
+			while(file.hasNext())
+			{
+				text += file.nextLine() + "\n";
+			}
+			for (int i = 0; i < text.length(); i++)
+			{
+				char symbol = text.charAt(i);
+				int index = letters.indexOf(symbol);
+				if (index != -1)
+				{
+					count.set(index, count.get(index) +1);
+				}
+			}
+		
 		}
 		catch(Exception e)
 		{
@@ -84,15 +130,37 @@ public class Histogram
 
 	public char mostFrequent()
 	{
+		int max = Integer.MIN_VALUE;
+		int index = -1;
+		for (int i = 0; i < letters.size(); i++)
+		{
+			int value = count.get(i);
+			if (value > max)
+			{
+				max = value;
+				index = i;
+			}
+		}
+		return letters.get(index);
 		
-		return '#';
 	}
 
 	public char leastFrequent()
 	{
+		int min = Integer.MAX_VALUE;
+		int index = -1;
+		for (int i = 0; i < letters.size(); i++)
+		{
+			int value = count.get(i);
+			if (value < min)
+			{
+				min = value;
+				index = i;
+			}
+		}
+		return letters.get(index);
 
 
-		return '#';
 	}
 
 	public String toString()

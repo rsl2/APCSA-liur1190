@@ -32,7 +32,7 @@ public class Lab16e
 		out.println(test2);
 		
 		Histogram test3 = new Histogram(new char[]{'x','a','r','g'},"H:\\APCS\\APCSA-liur1190\\unit 10\\src\\lab16e3.dat");
-		test2.loadAndAnalyzeFile();
+		test3.loadAndAnalyzeFile();
 		out.println("Letter occurring most: " +test3.mostFrequent());
 		out.println("Letter occurring least: " +test3.leastFrequent());
 		out.println("\n");
