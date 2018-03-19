@@ -1,0 +1,36 @@
+package lab18e;
+//A+ Computer Science  -  www.apluscompsci.com
+//Name -
+//Date -
+//Class -
+//Lab  -
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Arrays;
+import static java.lang.System.*;
+
+public class Lab18e
+{
+	public static void main( String args[] ) throws IOException
+	{
+		Scanner file = new Scanner (new File ("H:\\APCSA\\Unit 12\\src\\lab18e\\lab18e.dat"));
+		int size = file.nextInt();
+		Word[] test = new Word[size];
+		
+		for (int i = 0; i < size; i++)
+		{
+			Word one = new Word(file.nextLine());
+			if (one.compareTo(new Word(file.nextLine()))== 1)
+				test[i] = one;
+		}
+		
+		//Collections.sort(Array);
+		
+		for (int j = 0; j < size; j++)
+		{
+			out.println(test[j]);
+		}
+
