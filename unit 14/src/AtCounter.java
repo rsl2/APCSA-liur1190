@@ -14,7 +14,7 @@ public class AtCounter
 	public AtCounter()
 	{
 		atCount=0;
-		atMat = new char[][]{{'@','-','@','-','-','@','-','@','@','@'},
+		atMat = new char[][]{		{'@','-','@','-','-','@','-','@','@','@'},
 									{'@','@','@','-','@','@','-','@','-','@'},
 									{'-','-','-','-','-','-','-','@','@','@'},
 									{'-','@','@','@','@','@','-','@','-','@'},
@@ -26,14 +26,22 @@ public class AtCounter
 									{'-','@','@','@','@','@','-','@','@','@'}};
 	}
 
-	public int countAts(int r, int c)
+	public void countAts(int r, int c)
 	{
 
 		//add in recursive code to count up the # of @s connected
 		//start checking at spot [r,c]
+		if (r < atMat.length && r >=0 && c < atMat.length && c>= 0 && atMat[r][c] == '@')
+		{
+			atMat[r][c] = '-';
+			atCount++;
+			countAts(r-1, c);
+			countAts(r, c-1);
+			countAts(r+1,c);
+			countAts(r, c+1);
+		}
+		
 
-
-		return 0;
 	}
 
 	public int getAtCount()
