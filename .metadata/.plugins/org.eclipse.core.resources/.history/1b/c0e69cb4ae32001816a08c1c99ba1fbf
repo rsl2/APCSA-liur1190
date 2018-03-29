@@ -1,0 +1,113 @@
+//© A+ Computer Science  -  www.apluscompsci.com
+//Name -
+//Date -
+//Class - 
+//Lab  - 
+
+import static java.lang.System.*;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;		//use Arrays.toString() to help print out the array
+
+public class QuickSort
+{
+	private static int passCount;
+
+	public static void quickSort(Comparable[] list)
+	{
+		
+		passCount = 0;
+		quickSort(list, 0, list.length-1);
+		out.println(String.format("Done: %s", String.format(Arrays.toString(list))));
+	}
+
+
+	private static void quickSort(Comparable[] list, int low, int high)
+	{
+		if (low < high)
+		{
+			int split = partition(list, low, high);
+			quickSort(list, low, split);
+			quickSort(list, split+1, high);
+			passCount++;
+			out.println(String.format("Pass %d: %s", passCount, String.format(Arrays.toString(list))));
+
+			
+		}
+
+
+	}
+
+
+	private static int partition(Comparable[] list, int low, int high)
+	{
+		int pivot;
+		Comparable c_pivot;
+		Comparable c_right;
+		Comparable c_left;
+		while (low < high)
+		{
+			//move the pivot to the top and move the bottom upwards
+			pivot = high;
+			c_pivot = list[pivot];
+			c_left = list[low];
+			while (c_left.compareTo(c_pivot) < 0)
+			{
+				//raising the bottom
+				low++;
+				c_left = list[low]; //updating
+			}
+			if (low < pivot)
+			{
+				//swapping bottom and pivot
+				list[pivot] = c_left;
+				list[low] = c_pivot;
+			}
+			//move the pivot to the bottom and move the top downwards
+			pivot = low;
+			c_pivot = list[pivot];
+			c_right = list[high];
+			while (c_right.compareTo(c_pivot) > 0)
+			{
+				//lowering the top
+				high--;
+				c_right = list[high]; // updating
+			}
+			if (pivot < high)
+			{
+				//swapping pivot and top
+				list[pivot] = c_right;
+				list[high] = c_pivot;
+			}
+		}
+
+		return high;
+		
+		/**int pivot = high;
+		int bot = low = 1;
+		int top = high + 1;
+		
+		while (bot < top)
+		{
+			if (bot + 1 < pivot)
+			{
+				
+			}
+			if (top - 1 > pivot)
+			{
+				
+			}
+			if (bot == top)
+				return top;
+		}
+		
+		
+		
+		return 0;**/
+		
+		
+		
+		
+		
+	}
+}
