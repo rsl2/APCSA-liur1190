@@ -20,37 +20,56 @@ public class Ball extends Block
 	}
 
 	//add the other Ball constructors
-	public Ball(int x)
-	{
-		setXSpeed(x);
-		ySpeed = 0;
-	}
 	
+
 	public Ball(int x, int y)
 	{
-		setXSpeed(x);
-		setYSpeed(y);
+		super(x, y);
+		setXSpeed(3);
+		setYSpeed(1);
 	}
+	
+	public Ball(int x, int y, int w, int h)
+	{
+		super(x, y, w, h);
+		setXSpeed(3);
+		setYSpeed(1);
+	}
+	
+	public Ball(int x, int y, int w, int h, Color col)
+	{
+		super(x, y, w, h, col);
+		setXSpeed(3);
+		setYSpeed(1);
+	}
+	
+	public Ball(int x, int y, int w, int h, Color col, int xS, int yS)
+	{
+		super(x, y, w, h, col);
+		setXSpeed(xS);
+		setYSpeed(yS);
+	}
+	
 	
 	   
    //add the set methods
-	public void setXSpeed(int x)
-	{
-		xSpeed = x;
+	public void setXSpeed(int xS) {
+		xSpeed = xS;
 	}
 	
-	public void setYSpeed(int y)
-	{
-		ySpeed = y;
+	public void setYSpeed(int yS) {
+		ySpeed = yS;
 	}
-   
+	
 
    public void moveAndDraw(Graphics window)
    {
    	//draw a white ball at old ball location
+	   Color temp = getColor();
+		draw(window, Color.WHITE);
+		setPos(getX()+xSpeed, getY()+ySpeed);
+		draw(window, temp);
 
-
-      setX(getX()+xSpeed);
 		//setY
 
 		//draw the ball at its new location
@@ -58,30 +77,50 @@ public class Ball extends Block
    
 	public boolean equals(Object obj)
 	{
-		Ball other = (Ball)obj;
-		if (super.equals(obj) && getXSpeed() == other.getXSpeed() && getYSpeed() == other.getYSpeed())
-			return true;
+		Ball other = (Ball) obj;
+		return super.equals(other)
+				&& this.getXSpeed() == other.getXSpeed()
+				&& this.getYSpeed() == other.getYSpeed();
 
-		return false;
+
+
+
+		
 	}   
-
-   //add the get methods
-	public int getXSpeed()
-	{
+	
+	
+	public int getXSpeed() {
 		return xSpeed;
 	}
 	
-	public int getYSpeed()
-	{
+	public int getYSpeed() {
 		return ySpeed;
 	}
 
-   //add a toString() method
-	public String toString()
-	{
-		String output = " ";
-		output += super.toString();
-		output += getXSpeed() + " " + getYSpeed();
-		return output;
+   //add the get methods
+	
+	public boolean didCollideLeft(Object obj) {
+		Wall other = (Wall) obj;
+		return this.getX() <= other.getLeft();
 	}
+	
+	public boolean didCollideRight(Object obj) {
+		Wall other = (Wall) obj;
+		return this.getX() >= other.getRight();
+	}
+	
+	public boolean didCollideTop(Object obj) {
+		Wall other = (Wall) obj;
+		return this.getY() <= other.getTop();
+	}
+
+	public boolean didCollideBottom(Object obj) {
+		Wall other = (Wall) obj;
+		return this.getY()+9 /*because the bottom wall is screwed up*/ >= other.getBottom();
+	}
+	public String toString() {
+		return super.toString() +" "+ getXSpeed() +" "+ getYSpeed();
+	}
+
+   //add a toString() method
 }
