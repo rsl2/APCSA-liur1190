@@ -189,7 +189,7 @@ public class Picture extends SimplePicture
     this.copy(flower1,400,0);
     this.copy(flower2,500,0);
     this.mirrorVertical();
-    this.write("H:\\APCS\\APCSA-liur1190\\Unit16\\pixLab\\images\\collage.jpg");
+    this.write("collage.jpg");
   }
   
   
@@ -204,7 +204,7 @@ public class Picture extends SimplePicture
     Pixel botPixel = null;
     Pixel[][] pixels = this.getPixels2D();
     Color rightColor = null;
-    Color botColor = null;
+    Color topColor = null;
     for (int row = 0; row < pixels.length; row++)
     {
       for (int col = 0; 
@@ -220,25 +220,25 @@ public class Picture extends SimplePicture
           leftPixel.setColor(Color.WHITE);
       }
     }
-    for( int row = 0; row < pixels.length-1; row++)
+    for (int col = 0; col < pixels.length; col++)
     {
-      for(int col = 0; col < pixels[0].length-1; col++)
-      {
-        topPixel = pixels[row][col];
-        botPixel = pixels[row + 1][col];
-        botColor = botPixel.getColor();
-        if(topPixel.colorDistance(botColor) > edgeDist)
-        {
-          topPixel.setColor(Color.BLACK);
-        }
-        else
-        {
-          topPixel.setColor(Color.WHITE);
-        }  
-      }        
+    	for (int row = 0; row < pixels.length-1; row++)
+    	{
+    		topPixel = pixels[row][col];
+    		botPixel = pixels[row+1][col];
+    		topColor = topPixel.getColor();
+    		if (botPixel.colorDistance(topColor) > edgeDist)
+    			botPixel.setColor(Color.BLACK);
+    		else
+    			botPixel.setColor(Color.WHITE);
+    	}
     }
   }
   
+  public void edgeDetection2(int edgeDist)
+  {
+	  
+  }
   
   public void keepOnlyBlue()
   {
@@ -249,34 +249,6 @@ public class Picture extends SimplePicture
 	      {
 	        pixelObj.setRed(0);
 	        pixelObj.setGreen(0);
-	        
-	      }
-	    }
-  }
-  
-  public void keepOnlyRed()
-  {
-	  Pixel[][] pixels = this.getPixels2D();
-	    for (Pixel[] rowArray : pixels)
-	    {
-	      for (Pixel pixelObj : rowArray)
-	      {
-	        pixelObj.setBlue(0);
-	        pixelObj.setGreen(0);
-	        
-	      }
-	    }
-  }
-  
-  public void keepOnlyGreen()
-  {
-	  Pixel[][] pixels = this.getPixels2D();
-	    for (Pixel[] rowArray : pixels)
-	    {
-	      for (Pixel pixelObj : rowArray)
-	      {
-	        pixelObj.setBlue(0);
-	        pixelObj.setRed(0);
 	        
 	      }
 	    }

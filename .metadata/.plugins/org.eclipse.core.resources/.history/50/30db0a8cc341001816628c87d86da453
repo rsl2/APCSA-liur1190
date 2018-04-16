@@ -147,19 +147,13 @@ public class PictureTester
 	  seagull.mirrorGull();
 	  seagull.explore();
   }
-  public static void testCopy()
-  {
-	  Picture snowman = new Picture("H:\\APCS\\APCSA-liur1190\\Unit16\\pixLab\\images\\snowman.jpg");
-	  snowman.explore();
-	  snowman.copy(snowman, 70, 120);
-	  snowman.explore();
-  }
+  
   public static void testCopy2()
   {
-	  Picture snowman = new Picture("H:\\APCS\\APCSA-liur1190\\Unit16\\pixLab\\images\\snowman.jpg");
-	  snowman.explore();
-	  snowman.copy2(snowman, 80, 164, 164, 247);
-	  snowman.explore();
+	  Picture seagull = new Picture("H:\\APCS\\APCSA-liur1190\\Unit16\\pixLab\\images\\seagull.jpg");
+	  seagull.explore();
+	  seagull.copy2(seagull, 2, 5, 4, 9);
+	  seagull.explore();
   }
   
   public static void testMyCollage()
@@ -187,7 +181,7 @@ public class PictureTester
     // to run
     //testZeroBlue();
     //testKeepOnlyBlue();
-    //testKeepOnlyRed();
+    testKeepOnlyRed();
     //testKeepOnlyGreen();
     //testNegate();
     //testGrayscale();

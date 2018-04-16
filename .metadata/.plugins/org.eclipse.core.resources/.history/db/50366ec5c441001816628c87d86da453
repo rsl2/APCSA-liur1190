@@ -203,7 +203,7 @@ public class PictureTester
 	//testCollage();
     //testMyCollage();
     //testCopy();
-	//testCopy2();
+	testCopy2();
     //testEdgeDetection(); 
     //testEdgeDetection2();
     //testChromakey();

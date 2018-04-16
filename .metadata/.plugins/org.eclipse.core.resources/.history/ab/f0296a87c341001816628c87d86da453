@@ -189,7 +189,7 @@ public class Picture extends SimplePicture
     this.copy(flower1,400,0);
     this.copy(flower2,500,0);
     this.mirrorVertical();
-    this.write("H:\\APCS\\APCSA-liur1190\\Unit16\\pixLab\\images\\collage.jpg");
+    this.write("collage.jpg");
   }
   
   
@@ -249,34 +249,6 @@ public class Picture extends SimplePicture
 	      {
 	        pixelObj.setRed(0);
 	        pixelObj.setGreen(0);
-	        
-	      }
-	    }
-  }
-  
-  public void keepOnlyRed()
-  {
-	  Pixel[][] pixels = this.getPixels2D();
-	    for (Pixel[] rowArray : pixels)
-	    {
-	      for (Pixel pixelObj : rowArray)
-	      {
-	        pixelObj.setBlue(0);
-	        pixelObj.setGreen(0);
-	        
-	      }
-	    }
-  }
-  
-  public void keepOnlyGreen()
-  {
-	  Pixel[][] pixels = this.getPixels2D();
-	    for (Pixel[] rowArray : pixels)
-	    {
-	      for (Pixel pixelObj : rowArray)
-	      {
-	        pixelObj.setBlue(0);
-	        pixelObj.setRed(0);
 	        
 	      }
 	    }

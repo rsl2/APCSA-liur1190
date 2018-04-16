@@ -202,7 +202,7 @@ public class PictureTester
     //testMirrorDiagonal();
 	//testCollage();
     //testMyCollage();
-    //testCopy();
+    testCopy();
 	//testCopy2();
     //testEdgeDetection(); 
     //testEdgeDetection2();
