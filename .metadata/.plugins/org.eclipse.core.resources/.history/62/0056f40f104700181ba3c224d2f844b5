@@ -1,0 +1,101 @@
+// A+ Computer Science  -  www.apluscompsci.com
+//Name -
+//Date - 
+//Class -
+//Lab  -
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import javax.imageio.ImageIO;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AlienHorde
+{
+	private List<Alien> aliens;
+
+	public AlienHorde(int size)
+	{
+		aliens = new ArrayList<Alien>();
+		int x = 0;
+		int y = 5;
+		int speed = 2;
+		for (int i=0; i<size; i++)
+		{
+			aliens.add(new Alien(x, y, 2));
+			x += 65;
+			if (x >= 670)
+			{
+				x = 80;
+				speed = -speed;
+				y += 80;
+			}
+		}
+	}
+
+	public void add(Alien al)
+	{
+		aliens.add(al);
+	}
+
+	public void draw( Graphics window )
+	{
+		for( Alien a : aliens)
+			a.draw( window );
+	}
+
+	public void move()
+	{
+		for(Alien a : aliens)
+		{
+			a.move("DOWN");
+		}
+	}
+
+	public void removeDeadOnes(List<Ammo> shots)
+	{
+		for (int i=0; i<shots.size(); i++)
+		{
+			for (int j=0; j<aliens.size(); j++)
+			{
+				if (shots.get(i).getX() >= aliens.get(j).getX()
+						&& shots.get(i).getX() <= aliens.get(j).getX() + 45 
+						&& shots.get(i).getY() <= aliens.get(j).getY() + 70)
+				{
+					shots.remove(i);
+					aliens.remove(j);
+					if (shots.size()==0) break;
+				}
+			}
+		}
+	}
+	
+	public boolean gameIsWon()
+	{
+		if (aliens.size()==0) return true;
+		return false;
+	}
+	
+	public boolean touchingShip(Graphics window, Ship ship)
+	{
+		boolean touching = false;
+		for (Alien al : aliens)
+		{
+			if ( ((ship.getX() >= al.getX() && ship.getX() <= al.getX()+45)
+					|| (ship.getX()+50 >= al.getX() && ship.getX()+50 <= al.getX()+45))
+					&& ((ship.getY()+55 >= al.getY() && ship.getY()+55 <= al.getY()+50)
+					|| (al.getY() <= ship.getY() && ship.getY() <= al.getY()+50)) )
+			{
+				touching = true;
+			}
+		}
+		return touching;
+	}
+
+	public String toString()
+	{
+		return "" + aliens;
+	}
+}

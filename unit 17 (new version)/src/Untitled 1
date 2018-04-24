@@ -1,0 +1,4 @@
+my issues include
+(1) not getting Darth Vader to move randomly
+(2) make him blend into the black background
+(3) code in OuterSpace that if the ship touches DarthVader then game == false and the player loses

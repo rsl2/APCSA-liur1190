@@ -1,0 +1,257 @@
+//© A+ Computer Science  -  www.apluscompsci.com
+//Name -
+//Date -
+//Class -
+//Lab  -
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Canvas;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+import static java.lang.Character.*;
+import java.awt.image.BufferedImage;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+public class OuterSpace extends Canvas implements KeyListener, Runnable
+{
+	private Ship ship;
+	//private Alien alienOne;
+	//private Alien alienTwo;
+	//private ArrayList<Alien> aliens;
+	private ArrayList<Ammo> shots;
+	private AlienHorde horde;
+	private boolean game;
+	private int hordeSize;
+	
+	private boolean[] keys;
+	private BufferedImage back;
+
+	public OuterSpace()
+	{
+		ship = new Ship(100,300,2);
+		//alienOne = new Alien(0,0,3);
+		//alienTwo = new Alien(0,0,3);
+		//aliens = new ArrayList<Alien>();
+		shots = new ArrayList<Ammo>();
+		hordeSize = 30;
+		horde = new AlienHorde(hordeSize);
+		setBackground(Color.black);
+
+		game = true;
+		
+		keys = new boolean[6];
+
+		//instantiate other stuff
+		
+		this.addKeyListener(this);
+		new Thread(this).start();
+
+		setVisible(true);
+	}
+
+	public void update(Graphics window)
+	{
+		paint(window);
+	}
+
+	public void paint( Graphics window )
+	{
+		//set up the double buffering to make the game animation nice and smooth
+		Graphics2D twoDGraph = (Graphics2D)window;
+
+		//take a snap shop of the current screen and same it as an image
+		//that is the exact same width and height as the current screen
+		if(back==null)
+		   back = (BufferedImage)(createImage(getWidth(),getHeight()));
+
+		//create a graphics reference to the back ground image
+		//we will draw all changes on the background image
+		Graphics graphToBack = back.createGraphics();
+
+		graphToBack.setColor(Color.BLUE);
+		graphToBack.drawString("StarFighter ", 25, 50 );
+		graphToBack.setColor(Color.BLACK);
+		graphToBack.fillRect(0,0,800,600);
+		
+		ship.draw(graphToBack);
+		horde.draw(graphToBack);
+
+		for (Ammo shot: shots)
+		{
+			shot.draw(graphToBack);
+		}
+		
+		//add code to move stuff
+		//manually moving the ship
+		if (ship.getX()>=-10 && game==true)
+		{
+			if(keys[0] == true) ship.move("LEFT");
+		}
+		if (ship.getX()<=715 && game==true)
+		{
+			if (keys[1] == true) ship.move("RIGHT");
+		}
+		if (ship.getY()>=-10 && game==true)
+		{
+			if (keys[2] == true) ship.move("UP");
+		}
+		if (ship.getY()<=470 && game==true)
+		{
+			if (keys[3] == true) ship.move("DOWN");
+		}
+		if (keys[4]==true && game==true)
+		{
+			int red = (int)(Math.random()*255);
+			int green = (int)(Math.random()*255);
+			int blue = (int)(Math.random()*255);
+			Color color = new Color(red, green, blue);
+			shots.add(new Ammo(ship.getX()+35, ship.getY()-15, 3, color));
+			keys[4] = false;
+		}
+		
+		if (keys[5]==true && game==false)
+		{
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				System.out.println("failed");
+			}
+			game=true;
+			horde = new AlienHorde(hordeSize);
+		}
+
+		//add in collision detection
+		if (game==true)
+		{
+			horde.move();
+		}
+		horde.removeDeadOnes(shots);
+		if (horde.touchingShip(graphToBack, ship))
+		{
+			game = false;
+			graphToBack.setColor(Color.WHITE);
+			Font boring = new Font(graphToBack.getFont().toString(), Font.PLAIN, 20);
+			graphToBack.setFont(boring);
+			graphToBack.drawString("YOU LOSE", 350, 300);
+			graphToBack.drawString("Press Y to play again", 300, 400);
+		}
+		
+		if (horde.gameIsWon())
+		{
+			game = false;
+			graphToBack.setColor(Color.WHITE);
+			Font boring = new Font(graphToBack.getFont().toString(), Font.PLAIN, 20);
+			graphToBack.setFont(boring);
+			graphToBack.drawString("YOU WIN", 350, 300);
+			graphToBack.drawString("Press Y to play again", 300, 400);
+		}
+
+		twoDGraph.drawImage(back, null, 0, 0);
+	}
+
+	public void keyPressed(KeyEvent e)
+	{
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			keys[0] = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			keys[1] = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_UP)
+		{
+			keys[2] = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN)
+		{
+			keys[3] = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_SPACE)
+		{
+			keys[4] = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_Y)
+		{
+			keys[5] = true;
+		}
+		repaint();
+	}
+
+	public void keyReleased(KeyEvent e)
+	{
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			keys[0] = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			keys[1] = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_UP)
+		{
+			keys[2] = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN)
+		{
+			keys[3] = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_SPACE)
+		{
+			keys[4] = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_Y)
+		{
+			keys[5] = false;
+		}
+		repaint();
+	}
+
+	//this method isn't doing anything
+	public void keyTyped(KeyEvent e)
+	{
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			keys[0] = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			keys[1] = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_UP)
+		{
+			keys[2] = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN)
+		{
+			keys[3] = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_SPACE)
+		{
+			keys[4] = true;
+		}
+		repaint();
+	}
+	
+	public void run()
+	{
+		try
+		{
+			while(true)
+			{
+				Thread.currentThread().sleep(5);
+				repaint();
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("Loading thread failed.");
+		}
+  	}
+}
+

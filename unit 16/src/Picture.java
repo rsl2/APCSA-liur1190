@@ -364,10 +364,10 @@ public class Picture extends SimplePicture
 	  Pixel[][] pixels = this.getPixels2D();
 		Pixel topPixel = null;
 		Pixel bottomPixel = null;
-		int width = pixels[0].length;
-		for (int row = pixels.length / 2 - 1; row < pixels.length; row++)
+		int height = pixels[0].length;
+		for (int row = pixels.length / 2; row < pixels.length; row++)
 		{
-			for (int col = 0; col < width - 1; col++)
+			for (int col = 0; col < height - 1; col++)
 			{
 				topPixel = pixels[row][col];
 				bottomPixel = pixels[pixels.length - 1 - row][col];
@@ -386,11 +386,11 @@ public class Picture extends SimplePicture
 		int height = pixels.length;
 		if (width > height)
 		{
-			width = (height - 1);
+			width = height - 1;
 		}
 		else if (width < pixels.length)
 		{
-			height = (width - 1);
+			height = width - 1;
 		}
 		for (int row = 0; row < height; row++)
 		{

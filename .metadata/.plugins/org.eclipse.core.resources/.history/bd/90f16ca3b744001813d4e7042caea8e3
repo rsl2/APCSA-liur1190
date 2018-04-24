@@ -1,0 +1,56 @@
+//© A+ Computer Science  -  www.apluscompsci.com
+//Name -
+//Date - 
+//Class -
+//Lab  -
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import javax.imageio.ImageIO;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AlienHorde extends Alien
+{
+	private List<Alien> aliens;
+
+	public AlienHorde(int size)
+	{
+		aliens = new ArrayList<Alien>(size);
+	}
+
+	public void add(Alien al)
+	{
+		aliens.add(al);
+	}
+
+	public void drawEmAll( Graphics window )
+	{
+		for(Alien e: aliens){
+			e.draw(window);
+		}
+	}
+
+	public void moveEmAll(String direction)
+	{
+		for(Alien e: aliens){
+			switch(direction){
+				case "UP": e.move("UP"); break;
+				case "DOWN": e.move("DOWN"); break;
+				case "LEFT": e.move("LEFT"); break;
+				case "RIGHT": e.move("RIGHT"); break;
+			}
+		}
+	}
+
+	public void removeDeadOnes(List<Ammo> shots)
+	{
+	}
+
+	public String toString()
+	{
+		return "";
+	}
+}

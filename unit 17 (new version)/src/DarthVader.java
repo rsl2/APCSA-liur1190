@@ -1,0 +1,71 @@
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
+public class DarthVader extends MovingThing
+{
+	private int speed;
+	private Image image;
+	private Graphics window;
+	
+	public DarthVader()
+	{
+		super(0,0,30,30);
+		setSpeed(0);
+	}
+	
+	public DarthVader(int x, int y, int w, int h, int s)
+	{
+		super(x, y, w,h);
+		setSpeed(s);
+		try
+		{
+			image = ImageIO.read(new File("H:\\APCS\\APCSA-liur1190\\Starfighter\\vader.jpg"));
+		}
+		catch(Exception e)
+		{
+			//feel free to do something here
+			System.out.println("Houston, we have a problem.");
+		}
+	}
+
+	@Override
+	public void setSpeed(int s) {
+		// TODO Auto-generated method stub
+		speed = s;
+		
+	}
+
+	@Override
+	public int getSpeed() {
+		// TODO Auto-generated method stub
+		return speed;
+	}
+
+	@Override
+	public void move(String direction) {
+		// TODO Auto-generated method stub
+		
+	    setX((int)Math.random()*350 + getSpeed());
+	    setY((int)Math.random()*350 + getSpeed());
+	    if(getX() < 0 || getX()>760)
+			  setSpeed(-getSpeed());
+	    if(getY() < 0 || getY() > 580)
+	    	setSpeed(-getSpeed());
+	}
+
+	@Override
+	public void draw(Graphics window) {
+		// TODO Auto-generated method stub
+		window.drawImage(image,getX(),getY(),getWidth(),getHeight(),null);
+		
+	}
+	
+	public String toString()
+	{
+		return "";
+	}
+
+}
