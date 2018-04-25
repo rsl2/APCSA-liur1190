@@ -55,20 +55,6 @@ public class DarthVader extends MovingThing
 	    if(getY() < 0 || getY() > 580)
 	    	setSpeed(-getSpeed());
 	}
-	
-	public boolean touchingShip(Graphics window, Ship ship)
-	{
-		boolean touching = false;
-		if ( ((ship.getX() >= this.getX() && ship.getX() <= this.getX()+45)
-					|| (ship.getX()+50 >= this.getX() && ship.getX()+50 <= this.getX()+45))
-					&& ((ship.getY()+55 >= this.getY() && ship.getY()+55 <= this.getY()+50)
-					|| (this.getY() <= ship.getY() && ship.getY() <= this.getY()+50)) )
-			{
-				touching = true;
-			}
-		
-		return touching;
-	}
 
 	@Override
 	public void draw(Graphics window) {

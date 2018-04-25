@@ -157,17 +157,13 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		
 		if (vader.touchingShip(window, ship)==true)
 		{
-			setBackground(Color.black);	
-			graphToBack.setColor(Color.RED);
-
-			graphToBack.drawString("YOU LOSE!",300, 300);		
+			graphToBack.setColor(Color.BLACK);
+			System.out.println("YOU LOSE");
 		}
 		
 		if (horde.gameIsWon()==true)
 		{
-			setBackground(Color.black);			
-			graphToBack.setColor(Color.PINK);
-			graphToBack.drawString("YOU WON!",300, 300);
+			System.out.println("YOU WON!");
 		}
 		//add in collision detection to see if Bullets hit the Aliens and if Bullets hit the Ship
 

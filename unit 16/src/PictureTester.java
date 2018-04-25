@@ -178,6 +178,18 @@ public class PictureTester
 	    swan.explore();
   }
   
+  
+  public static void testBlur(int x, int y, int w, int h, int n)
+  {
+	  Picture redMoto = new Picture("H:\\APCS\\APCSA-liur1190\\Unit16\\pixLab\\images\\redMotorcycle.jpg");
+	  redMoto.explore();
+	  for (int i = 0; i < n; i++)
+	  {
+		  redMoto.blur(x,y,w,h);
+	  }
+	  redMoto.explore();
+  }
+  
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
@@ -212,5 +224,6 @@ public class PictureTester
     //testSetRedToHalfValueInTopHalf();
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
+	testBlur(190,160,20,20,10);
   }
 }

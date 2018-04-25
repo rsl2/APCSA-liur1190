@@ -59,14 +59,16 @@ public class DarthVader extends MovingThing
 	public boolean touchingShip(Graphics window, Ship ship)
 	{
 		boolean touching = false;
-		if ( ((ship.getX() >= this.getX() && ship.getX() <= this.getX()+45)
-					|| (ship.getX()+50 >= this.getX() && ship.getX()+50 <= this.getX()+45))
-					&& ((ship.getY()+55 >= this.getY() && ship.getY()+55 <= this.getY()+50)
-					|| (this.getY() <= ship.getY() && ship.getY() <= this.getY()+50)) )
+		for (Alien al : aliens)
+		{
+			if ( ((ship.getX() >= al.getX() && ship.getX() <= al.getX()+45)
+					|| (ship.getX()+50 >= al.getX() && ship.getX()+50 <= al.getX()+45))
+					&& ((ship.getY()+55 >= al.getY() && ship.getY()+55 <= al.getY()+50)
+					|| (al.getY() <= ship.getY() && ship.getY() <= al.getY()+50)) )
 			{
 				touching = true;
 			}
-		
+		}
 		return touching;
 	}
 

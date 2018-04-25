@@ -15,12 +15,11 @@ import static java.lang.Character.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class OuterSpace extends Canvas implements KeyListener, Runnable
 {
 	private Ship ship;
+	//private int timer;
 	//private Alien alienOne;
 	//private Alien alienTwo;
 	//private Ammo ammo;
@@ -52,7 +51,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		shots.add(new Ammo(-10,-10,0));
 		//put it in negative position so that it doesn't appear on screen
 		game = true;
-		vader = new DarthVader(300,400,70,70,5);
+		vader = new DarthVader(300,400,40,40,5);
 
 		this.addKeyListener(this);
 		new Thread(this).start();
@@ -100,10 +99,12 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		shots.moveEmAll();
 		shots.drawEmAll(graphToBack);
 		vader.draw(graphToBack);
+		vader.move("");
 		horde.drawEmAll(graphToBack);
 		//horde.moveEmAll("");
 		
 		horde.removeDeadOnes(shots.getList());
+		
 		
 
 
@@ -148,27 +149,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		{
 			horde.moveEmAll("");
 		}
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			public void run() {
-				vader.move("");
-			}
-		}, 500);
-		
-		if (vader.touchingShip(window, ship)==true)
-		{
-			setBackground(Color.black);	
-			graphToBack.setColor(Color.RED);
 
-			graphToBack.drawString("YOU LOSE!",300, 300);		
-		}
-		
-		if (horde.gameIsWon()==true)
-		{
-			setBackground(Color.black);			
-			graphToBack.setColor(Color.PINK);
-			graphToBack.drawString("YOU WON!",300, 300);
-		}
 		//add in collision detection to see if Bullets hit the Aliens and if Bullets hit the Ship
 
 

@@ -157,10 +157,8 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		
 		if (vader.touchingShip(window, ship)==true)
 		{
-			setBackground(Color.black);	
-			graphToBack.setColor(Color.RED);
-
-			graphToBack.drawString("YOU LOSE!",300, 300);		
+			graphToBack.setColor(Color.BLACK);
+			System.out.println("YOU LOSE");
 		}
 		
 		if (horde.gameIsWon()==true)

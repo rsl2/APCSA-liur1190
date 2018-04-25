@@ -486,34 +486,6 @@ public class Picture extends SimplePicture
 		this.write("H:\\APCS\\APCSA-liur1190\\Unit16\\pixLab\\images\\collage.jpg");
   }
   
-  public void blur(int x, int y, int w, int h)
-  {
-	  Pixel[][] pixels = this.getPixels2D();
-	  Pixel topPixel = null;
-	  Pixel botPixel = null;
-	  Pixel leftPixel = null;
-	  Pixel rightPixel = null;
-	  Pixel thePixel = null;
-	  
-	  int width = pixels[0].length;
-	  int height = pixels.length;
-	  for (int row = 1; row < height - 1; row++)
-		{
-			for (int col = 1; col < width - 1; col++)
-			{
-				thePixel = pixels[row][col];
-				topPixel = pixels[row-1][col];
-				botPixel = pixels[row+1][col];
-				leftPixel = pixels[row][col-1];
-				rightPixel = pixels[row+1][col];
-				thePixel.setBlue((topPixel.getBlue()+botPixel.getBlue()+leftPixel.getBlue()+rightPixel.getBlue())/4);
-				thePixel.setRed((topPixel.getRed()+botPixel.getRed()+leftPixel.getRed()+rightPixel.getRed())/4);
-				thePixel.setGreen((topPixel.getGreen()+botPixel.getGreen()+leftPixel.getGreen()+rightPixel.getGreen())/4);
-
-			}
-		}
-  }
-  
   /* Main method for testing - each class in Java can have a main 
    * method 
    */

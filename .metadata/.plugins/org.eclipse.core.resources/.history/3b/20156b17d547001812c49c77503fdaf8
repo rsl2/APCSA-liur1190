@@ -22,7 +22,7 @@ public class DarthVader extends MovingThing
 		setSpeed(s);
 		try
 		{
-			image = ImageIO.read(new File("H:\\APCS\\APCSA-liur1190\\unit 17 (new version)\\src\\vader.jpg"));
+			image = ImageIO.read(new File("H:\\APCS\\APCSA-liur1190\\Starfighter\\vader.jpg"));
 		}
 		catch(Exception e)
 		{
@@ -54,20 +54,6 @@ public class DarthVader extends MovingThing
 			  setSpeed(-getSpeed());
 	    if(getY() < 0 || getY() > 580)
 	    	setSpeed(-getSpeed());
-	}
-	
-	public boolean touchingShip(Graphics window, Ship ship)
-	{
-		boolean touching = false;
-		if ( ((ship.getX() >= this.getX() && ship.getX() <= this.getX()+45)
-					|| (ship.getX()+50 >= this.getX() && ship.getX()+50 <= this.getX()+45))
-					&& ((ship.getY()+55 >= this.getY() && ship.getY()+55 <= this.getY()+50)
-					|| (this.getY() <= ship.getY() && ship.getY() <= this.getY()+50)) )
-			{
-				touching = true;
-			}
-		
-		return touching;
 	}
 
 	@Override
