@@ -121,7 +121,7 @@ public class AlienHorde extends Alien
 		}
 	}
 	
-	public boolean gameIsWon()
+	public boolean gameIsOver()
 	{
 		if (aliens.size()==0) return true;
 		return false;

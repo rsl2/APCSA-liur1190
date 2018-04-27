@@ -1,6 +1,9 @@
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 import javax.imageio.ImageIO;
 
@@ -48,12 +51,9 @@ public class DarthVader extends MovingThing
 	public void move(String direction) {
 		// TODO Auto-generated method stub
 		
-	    setX((int)Math.random()*350 + getSpeed());
-	    setY((int)Math.random()*350 + getSpeed());
-	    if(getX() < 0 || getX()>760)
-			  setSpeed(-getSpeed());
-	    if(getY() < 0 || getY() > 580)
-	    	setSpeed(-getSpeed());
+	    setX((int)(Math.random()*700));
+	    setY((int)(Math.random()*400));
+	    
 	}
 	
 	public boolean touchingShip(Graphics window, Ship ship)

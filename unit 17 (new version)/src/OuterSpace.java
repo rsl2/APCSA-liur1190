@@ -31,6 +31,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 	private Bullets shots;
 	private boolean game;
 	private DarthVader vader;
+	private int timer;
 
 	private boolean[] keys;
 	private BufferedImage back;
@@ -47,12 +48,13 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		//alienOne = new Alien(340,100,50,50,3);
 		//alienTwo = new Alien(420,100,50,50,3);
 		//ammo = new Ammo(400,420,3);
-		horde = new AlienHorde(20);
+		horde = new AlienHorde(30);
 		shots = new Bullets();
 		shots.add(new Ammo(-10,-10,0));
 		//put it in negative position so that it doesn't appear on screen
 		game = true;
-		vader = new DarthVader(300,400,70,70,5);
+		vader = new DarthVader(300,400,70,70,2);
+
 
 		this.addKeyListener(this);
 		new Thread(this).start();
@@ -101,20 +103,15 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		shots.drawEmAll(graphToBack);
 		vader.draw(graphToBack);
 		horde.drawEmAll(graphToBack);
-		//horde.moveEmAll("");
+		
+		if(timer % 20 == 0)
+			vader.move("");
 		
 		horde.removeDeadOnes(shots.getList());
 		
 
 
-		/**if(keys[0] == true)
-			ship.move("LEFT");
-		if(keys[1] == true)
-			ship.move("RIGHT");
-		if(keys[2] == true)
-			ship.move("UP");
-		if(keys[3] == true)
-			ship.move("DOWN");**/
+		
 		if (ship.getX()>=-10 && game==true)
 		{
 			if(keys[0] == true) ship.move("LEFT");
@@ -133,12 +130,6 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		}
 		if(keys[4] == true)
 		{
-			//ship.move("UP");
-			//ammo.draw(window);
-			//ammo.move("");
-			//timer = 0;
-			//ammo = new Ammo(400,420,3);
-			//ammo.draw(window);
 			shots.add(new Ammo(ship.getX()+25,ship.getY(),-1));
 		}
 			
@@ -148,26 +139,26 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		{
 			horde.moveEmAll("");
 		}
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			public void run() {
-				vader.move("");
-			}
-		}, 500);
+		
 		
 		if (vader.touchingShip(window, ship)==true)
 		{
-			setBackground(Color.black);	
+			game = false;		
+		}
+		
+		if (horde.gameIsOver()==true)
+		{
+			graphToBack.clearRect(0, 0, 800, 600);
+			graphToBack.setColor(Color.PINK);
+			graphToBack.drawString("YOU WON!",300, 300);
+		}
+		
+		if(game == false)
+		{
+			graphToBack.clearRect(0, 0, 800, 600);
 			graphToBack.setColor(Color.RED);
 
 			graphToBack.drawString("YOU LOSE!",300, 300);		
-		}
-		
-		if (horde.gameIsWon()==true)
-		{
-			setBackground(Color.black);			
-			graphToBack.setColor(Color.PINK);
-			graphToBack.drawString("YOU WON!",300, 300);
 		}
 		//add in collision detection to see if Bullets hit the Aliens and if Bullets hit the Ship
 
@@ -240,6 +231,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
    		while(true)
    		{
    		   Thread.currentThread().sleep(5);
+   		   timer++;
             repaint();
          }
       }catch(Exception e)
