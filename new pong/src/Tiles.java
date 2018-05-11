@@ -1,0 +1,59 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import javax.imageio.ImageIO;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Tiles {
+	
+	private List<Block> tiles;
+	private Graphics window;
+	
+	public Tiles(int size)
+	{
+		tiles = new ArrayList<Block>(size);
+		int x = 10;
+		int y = 10;
+		for (int i = 0; i < tiles.size(); i++)
+		{
+			
+			tiles.add(new Block(x,y,20,20));
+			x+=20;
+			if (x>=670)
+			{
+				x = 0;
+				y+=20;
+			}
+			
+		}
+	}
+	public void add(Block bl)
+	{
+		tiles.add(bl);
+	}
+	
+	public void drawEmAll(Graphics window)
+	{
+		for( Block b : tiles)
+			b.draw( window );
+	}
+	
+	public void removeDeadOnes(Ball ball)
+	{
+		for (int i = 0; i < tiles.size();i++)
+		{
+			if (ball.getX() >= tiles.get(i).getX())
+				tiles.remove(i);
+		}
+	}
+	
+	public boolean levelDone()
+	{
+		if (tiles.size() == 0)
+			return true;
+		return false;
+	}
+
+}

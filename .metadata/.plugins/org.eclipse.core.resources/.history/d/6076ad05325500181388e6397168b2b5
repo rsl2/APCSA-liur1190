@@ -1,0 +1,70 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Tile extends Block
+{
+	private ArrayList<Block> topTiles;
+	private ArrayList<Block> bottomTiles;
+	private ArrayList<Block> leftTiles;
+	private ArrayList<Block> rightTiles;
+	private Graphics window;
+	
+	
+	public Tile()
+	{
+		topTiles = new ArrayList<Block>();
+		bottomTiles = new ArrayList<Block>();
+		leftTiles = new ArrayList<Block>();
+		rightTiles = new ArrayList<Block>();
+		for (int i = 0; i < 760; i+=40)
+		{
+			topTiles.add(new Block(i, 0, 39, 20, Color.RED));
+			topTiles.add(new Block(i, 20, 39, 20, Color.ORANGE));
+			bottomTiles.add(new Block(i, 540, 39, 20, Color.BLUE));
+			bottomTiles.add(new Block(i, 520, 39, 20, Color.CYAN));
+		}
+		
+		for (int j = 0; j < 760; j+=40)
+		{
+			leftTiles.add(new Block(0,j,20,39,Color.PINK));
+			leftTiles.add(new Block(20, j, 20, 39, Color.magenta));
+			rightTiles.add(new Block(765, j, 20, 39, Color.YELLOW));
+			rightTiles.add(new Block(745, j, 20, 39, Color.GREEN));
+		}
+	}
+	
+	/**public Tile(int x, int y, int w, int h, Color col)
+	{
+		super(x,y,w,h,col);
+		topTiles = new ArrayList<Tile>();
+		bottomTiles = new ArrayList<Tile>();
+		leftTiles = new ArrayList<Tile>();
+		rightTiles = new ArrayList<Tile>();
+	}**/
+	
+
+	public void drawEmAll( Graphics window )
+	{
+		this.window = window;
+		for (Block t: topTiles)
+		{
+			t.draw(window);
+		}
+		for (Block t: rightTiles)
+		{
+			t.draw(window);
+		}
+		for (Block t: bottomTiles)
+		{
+			t.draw(window);
+		}
+		for (Block t: leftTiles)
+		{
+			t.draw(window);
+		}
+		
+		
+	}
+}

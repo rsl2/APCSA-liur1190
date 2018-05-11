@@ -1,0 +1,266 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Canvas;
+//import java.awt.event.ActionEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+import static java.lang.Character.*;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.awt.Font;
+
+
+//import java.awt.event.ActionListener;
+
+public class Pong extends Canvas implements KeyListener, Runnable
+{
+		
+	/**
+	 * IF YOU WANT TO PLAY     SPEED-UP BALL  	TYPE 'a' IN "PLAY" INSTANCE
+	 * IF YOU WANT TO PLAY    BLINKY BALL	TYPE 'c' IN "PLAY" INSTANCE
+	 * IF YOU WANT TO PLAY       REGULAR BALL       TYPE 'r' IN "PLAY" INSTANCE
+	 */
+	
+	
+	char play = 'c';
+	
+	
+	
+	//instance variables
+	private static final long serialVersionUID = 1L;
+	
+	private Ball ball;
+	private Tile tiles;
+	private Tile2 tiles2;
+	private Paddle paddle;
+	private Wall wall;
+	
+	private int level=1;
+	private int timer = 0;
+	
+	private boolean[] keys;
+	private BufferedImage back;
+		
+
+	//starting position of ball
+	private static final int BALL_Xi = 380;
+	private static final int BALL_Yi = 265;
+	
+	public Pong()
+	{
+		createBall();
+		
+		
+		paddle = new Paddle(300, 300, 40, 40, Color.PINK, 5);
+		wall = new Wall(0, 770, 10, 550);
+		keys = new boolean[4];
+		tiles = new Tile();
+		
+		
+    	setBackground(Color.WHITE);
+		setVisible(true);
+		
+		new Thread(this).start();
+		addKeyListener(this);	
+		
+		
+	}
+	
+	
+	public void createBall() {
+		if(play == 'a') ball = new SpeedUpBall(BALL_Xi, BALL_Yi, 10, 10, Color.darkGray, 1, 1);
+		else if(play == 'c') ball = new BlinkyBall(BALL_Xi, BALL_Yi, 10, 10, Color.darkGray, 3, 1);
+		else if(play == 'r') ball = new Ball(BALL_Xi, BALL_Yi, 10, 10, Color.darkGray, 3, 1);
+	}
+	
+	public void subIncSpeed() {
+		timer++;
+		if(timer == 4) {
+			((SpeedUpBall)ball).incSpeed();
+			timer = 0;
+		}
+	}
+	
+	public void update(Graphics window){
+		paint(window);
+		if(tiles.getSize()==0 && level < 2)
+		{
+			tiles2 = new Tile2();
+			level = 2;
+		}
+			
+	}
+
+   	public void paint(Graphics window)
+   	{
+		//set up the double buffering to make the game animation nice and smooth
+		Graphics2D twoDGraph = (Graphics2D) window;
+
+		//take a snap shop of the current screen and save it as an image
+		//that is the exact same width and height as the current screen
+		if(back == null)
+		   back = (BufferedImage)(createImage(getWidth(),getHeight()));
+
+		//create a graphics reference to the back ground image
+		//we will draw all changes on the background image
+		Graphics graphToBack = back.createGraphics();
+		
+
+		int x = tiles.removeDeadOnes(ball);
+
+		ball.moveAndDraw(graphToBack);
+		paddle.draw(graphToBack);
+		tiles.drawEmAll(graphToBack);
+		if(level==2)
+		{
+			tiles2.drawEmAll(graphToBack);
+			int y = tiles2.removeDeadOnes(ball);
+
+			if(y==1){
+				ball.setYSpeed(-ball.getYSpeed());
+			}
+			if(y==2){
+				ball.setXSpeed(-ball.getXSpeed());
+			}
+
+		}
+	
+
+		//graphToBack.setColor(Color.RED);
+		//graphToBack.drawLine(0, wall.getBottom(), 800, wall.getBottom());
+		
+
+		graphToBack.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
+		//graphToBack.clearRect(52, 556, 708, 248);
+		graphToBack.setColor(Color.GRAY);
+		
+
+		//checking if ball collides with walls
+		if(ball.didCollideLeftWall(wall)) {
+			
+			ball.setXSpeed(-ball.getXSpeed());
+
+		}
+			
+		if(ball.didCollideRightWall(wall)) {
+			
+			
+			ball.setXSpeed(-ball.getXSpeed());
+			
+		}
+		
+		if(ball.didCollideTopWall(wall))
+		{
+			ball.setYSpeed(-ball.getYSpeed());
+		}
+		
+		if(ball.didCollideBottomWall(wall))
+		{
+			ball.setYSpeed(-ball.getYSpeed());
+		}
+		
+	
+		
+		//checking if ball collides with paddle
+	
+		
+	
+		if(ball.didCollidePaddle(paddle)&&ball.didCollidePaddleY(paddle)){
+			ball.setYSpeed(-ball.getYSpeed());
+		}
+		
+		if(ball.didCollidePaddle(paddle)&&ball.didCollidePaddleX(paddle)){
+			ball.setXSpeed(-ball.getXSpeed());
+		}
+	
+	
+		
+		
+		if(x==1){
+			ball.setYSpeed(-ball.getYSpeed());
+		}
+		if(x==2){
+			ball.setXSpeed(-ball.getXSpeed());
+		}
+		
+		if(keys[0] == true) {
+			paddle.moveLeftAndDraw(graphToBack);
+		}
+		if(keys[1] == true) {
+			paddle.moveRightAndDraw(graphToBack);
+		}
+			
+		if(keys[2] == true) {
+			paddle.moveUpAndDraw(graphToBack);
+		}
+		if(keys[3] == true) {
+			paddle.moveDownAndDraw(graphToBack);
+		}
+		
+		twoDGraph.drawImage(back, null, 0, 0);
+   	}
+   	
+  	
+   	public void keyPressed(KeyEvent e)
+	{
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			keys[0] = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			keys[1] = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_UP)
+		{
+			keys[2] = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN)
+		{
+			keys[3] = true;
+		}
+		
+		//repaint();
+	}
+
+	public void keyReleased(KeyEvent e)
+	{
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			keys[0] = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			keys[1] = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_UP)
+		{
+			keys[2] = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN)
+		{
+			keys[3] = false;
+		}
+		
+		//repaint();
+	}
+
+	public void keyTyped(KeyEvent e){}
+   	
+
+  	public void run()
+  	{
+  		try 
+  		{
+  			while(true) 
+  			{
+	  			Thread.currentThread();
+				Thread.sleep(8);
+				repaint();
+	  		}
+	  	} catch (Exception e){
+	  		System.out.println("oops");
+	  	}
+    }
+}
